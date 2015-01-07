@@ -166,6 +166,21 @@ if has("autocmd")
 
   " automatically rebalance windows on vim resize
   autocmd VimResized * :wincmd =
+
+  "match everything more the 80c long to the errormsg buffer
+  autocmd BufWinEnter !*.pdf,!git-rebase-todo match ErrorMsg /\%>80v.\+/
+
+  " Allow pdf to be opened in Vim
+  autocmd BufReadPre *.pdf set ro nowrap
+  autocmd BufReadPre *.pdf set noruler
+  autocmd BufRead *.pdf silent %!pdftotext "%" -nopgbrk -layout -q -eol unix -
+  autocmd BufReadPost *.pdf exec "%s/[^[:alnum:][:punct:][:space:]]//g"
+
+  "No more than 80c long red thing for pdf
+  if exists('+colorcolumn')
+      autocmd BufReadPre *.pdf set colorcolumn=0
+  endif
+
 end
 
 " Fix Cursor in TMUX
