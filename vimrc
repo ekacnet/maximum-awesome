@@ -1,3 +1,12 @@
+" vim: set ts=4 sw=4 ft=vim expandtab :
+" If you're about to edit this file, please read the following.
+" You most probably want to add your custom settings or undo the following settings in
+" $HOME/.vimrc.local instead of editing this file, this will ease the sync
+" with the upstream git repository.
+"
+" You should only edit this file when you want to share some great settings
+" with others (aka upstream your changes)
+"
 " don't bother with vi compatibility
 set nocompatible
 
