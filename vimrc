@@ -143,6 +143,13 @@ if has("autocmd")
   " expandtab for python
   autocmd filetype python set expandtab
 
+  " if the mark " is set then go to this mark g'" but we need to escape it
+  " It's basically to allow to go back to the last position in the file when
+  " the file has been read
+  autocmd BufReadPost *
+    \ if line("'\"") > 0 && line("'\"") <= line("$") |
+    \   exe "normal g`\"" |
+    \ endif
   " fdoc is yaml
   autocmd BufRead,BufNewFile *.fdoc set filetype=yaml
   " md is markdown
