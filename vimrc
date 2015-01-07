@@ -41,6 +41,8 @@ filetype plugin indent on
 
 set autoindent
 set autoread                                                 " reload files when changed on disk, i.e. via `git checkout`
+set copyindent                                               " copy the previous indentation on
+                                                             " autoindenting
 set backspace=2                                              " Fix broken backspace in some setups
 set backupcopy=yes                                           " see :help crontab
 set clipboard=unnamed                                        " yank and paste with the system clipboard
@@ -63,12 +65,22 @@ set tabstop=8                                                " actual tabs occup
 set wildignore=log/**,node_modules/**,target/**,tmp/**,*.rbc
 set wildmenu                                                 " show a navigable menu for tab completion
 set wildmode=longest,list,full
+set shiftround                                               " use multiple of shiftwidth when
+                                                             " indenting with '<' and '>'
+set showmatch                                                " set show matching parenthesis
+set smartcase                                                " ignore case if search pattern is
+                                                             " all lowercase, case-sensitive otherwise
+set smarttab                                                 " insert tabs on the start of a line
+                                                             " according to shiftwidth, not tabstop
+set incsearch                                                " show search matches as you type
 
 " Enable basic mouse behavior such as resizing buffers.
 set mouse=a
 if exists('$TMUX')  " Support resizing in tmux
   set ttymouse=xterm2
 endif
+set nobackup
+set pastetoggle=<F2>                                         " Allow to switch in paste mode
 
 " keyboard shortcuts
 let mapleader = ','
