@@ -104,8 +104,26 @@ nnoremap <leader><space> :call whitespace#strip_trailing()<CR>
 nnoremap <leader>g :GitGutterToggle<CR>
 noremap <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
 
+"allow to switch back and forth to wrap/nowrap mode
+:nmap \w :setlocal wrap!<CR>:setlocal wrap?<CR>
+
+" Allow to save files that are RO by doing a sudo root
+cmap w!! w !sudo tee % >/dev/null
+
+"In insert mode C-F points to C-X C-O, for omnifunc
+inoremap <C-F> <C-X><C-O>
+
 " in case you forgot to sudo
 cnoremap w!! %!sudo tee > /dev/null %
+":e# or :b# goes to the last edited buffer, we remap it to a more convinient shortcut
+nmap <C-e> :e#<CR>
+" Quickly edit/reload the vimrc file
+nmap <silent> <leader>ev :e $MYVIMRC<CR>
+nmap <silent> <leader>sv :so $MYVIMRC<CR>
+
+"allow to unhilight search
+:nmap \q :nohlsearch<CR>
+
 
 " plugin settings
 let g:ctrlp_match_window = 'order:ttb,max:20'
