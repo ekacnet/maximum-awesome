@@ -20,7 +20,9 @@ endtry
 " install Vundle bundles
 if filereadable(expand("~/.vimrc.bundles"))
   source ~/.vimrc.bundles
-  source ~/.vimrc.bundles.local
+  if filereadable(expand("~/.vimrc.bundles.local"))
+    source ~/.vimrc.bundles.local
+  endif
 endif
 
 call vundle#end()
