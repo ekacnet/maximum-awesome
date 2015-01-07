@@ -181,6 +181,8 @@ if has("autocmd")
       autocmd BufReadPre *.pdf set colorcolumn=0
   endif
 
+  " Wireshark's conformance files
+  autocmd BufReadPost *.cnf set syntax=c
 end
 
 " Fix Cursor in TMUX
