@@ -7,8 +7,15 @@ syntax enable
 " configure Vundle
 filetype on " without this vim emits a zero exit status, later, because of :ft off
 filetype off
+
+" Add $HOME/bundle/vundle to the runtime path of Vim
 set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+" Try to call vundle, should be nicer with older version of vim that didn't
+" support new stuff
+try
+    call vundle#begin()
+catch
+endtry
 
 " install Vundle bundles
 if filereadable(expand("~/.vimrc.bundles"))
