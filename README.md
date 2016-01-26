@@ -58,6 +58,9 @@ In your home directory, Maximum Awesome creates `.vimrc.local`, `.vimrc.bundles.
 Vim and tmux to your heart’s content. However, we’d love to incorporate your changes and improve Vim and tmux
 for everyone, so feel free to fork Maximum Awesome and open some pull requests!
 
+## Update
+If you want to add more bundle or get the bundles, just modify the `.vimrc.bundles.local` and run `BundleUpdate`
+
 ## Uninstall
 
     rake uninstall
