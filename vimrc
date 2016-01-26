@@ -153,7 +153,6 @@ if has("autocmd")
   " fdoc is yaml
   autocmd BufRead,BufNewFile *.fdoc set filetype=yaml
   " md is markdown
-  autocmd BufRead,BufNewFile *.md set filetype=markdown
   autocmd BufRead,BufNewFile *.md set spell
 
   " extra rails.vim help
