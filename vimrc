@@ -74,10 +74,12 @@ set smarttab                                                 " insert tabs on th
                                                              " according to shiftwidth, not tabstop
 set incsearch                                                " show search matches as you type
 
-" Enable basic mouse behavior such as resizing buffers.
-set mouse=a
-if exists('$TMUX')  " Support resizing in tmux
-  set ttymouse=xterm2
+if has("mouse")
+    " Enable basic mouse behavior such as resizing buffers.
+    set mouse=a
+    if exists('$TMUX')  " Support resizing in tmux
+        set ttymouse=xterm2
+    endif
 endif
 set nobackup
 set pastetoggle=<F2>                                         " Allow to switch in paste mode
