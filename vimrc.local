@@ -90,6 +90,11 @@ if has("autocmd")
     autocmd BufWinEnter *.sls set filetype=yaml
 endif
 
+" Load commits shortcuts when file .diff .patch(es) or COMMIT_EDITMSG
+" are in the buffer window
+autocmd BufWinEnter COMMIT_EDITMSG,*.diff,*.patch,*.patches.txt call CommitMessages()
+autocmd BufWinEnter scratch* set swapfile
+
 let g:vim_markdown_folding_disabled=1
 " Not to be removed
 if filereadable(expand("~/.vimrc.$USER"))
