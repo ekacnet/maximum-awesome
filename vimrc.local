@@ -1,33 +1,98 @@
-set nocursorline " don't highlight current line
+" vim: set ts=4 sw=4 ft=vim expandtab :
 
-" keyboard shortcuts
-inoremap jj <ESC>
+function! ShowCodingStyle()
+    if exists("g:loaded_coding_style")
+        return CodingStyle()
+    else
+        return 'CodingStyleNotLoaded'
+    endif
+endf
+" Undo some stuff from .vimrc, it comes from maximum-awsome repository
+" and we want to avoid to modify it too heavily
 
-" highlight search
-"set hlsearch
-"nmap <leader>hl :let @/ = ""<CR>
+" Do not autoread files as they change on the disk, it's sometime a way to
+" recover from a mistake
+set noautoread
 
-" gui settings
-if (&t_Co == 256 || has('gui_running'))
-  if ($TERM_PROGRAM == 'iTerm.app')
-    colorscheme solarized
-  else
-    colorscheme desert
-  endif
+if version >= 700
+    if has("gui_macvim")
+        " Maybe it's nice for mac but it's not nice in Linux so let's
+        " make a difference mac and the rest
+        set listchars=tab:▸\ ,trail:▫,extends:#
+    else
+        set listchars=tab:>.,trail:.,extends:#,nbsp:.
+    endif
+else
+    " listchars looks like crap in older version of vim
+    set nolistchars
 endif
 
-" Disambiguate ,a & ,t from the Align plugin, making them fast again.
-"
-" This section is here to prevent AlignMaps from adding a bunch of mappings
-" that interfere with the very-common ,a and ,t mappings. This will get run
-" at every startup to remove the AlignMaps for the *next* vim startup.
-"
-" If you do want the AlignMaps mappings, remove this section, remove
-" ~/.vim/bundle/Align, and re-run rake in maximum-awesome.
-function! s:RemoveConflictingAlignMaps()
-  if exists("g:loaded_AlignMapsPlugin")
-    AlignMapsClean
-  endif
-endfunction
-command! -nargs=0 RemoveConflictingAlignMaps call s:RemoveConflictingAlignMaps()
-silent! autocmd VimEnter * RemoveConflictingAlignMaps
+" to show the status line
+set ruler
+set laststatus=2
+if version >=700
+    set statusline=%<%f%h%m%r%=style=%{ShowCodingStyle()}\ %15(L%l,C%c%V%)\ %3P
+endif
+set hlsearch                                                 " highlight search terms
+" Seem that things works better when everything has the same value and 2 is
+" really a too small indentation
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+
+if exists('+colorcolumn')
+    set colorcolumn=80
+endif
+
+" Undo mouse thingy it's not very convinient
+set mouse=
+" Allow to redit the same file, quite handy
+set noswapfile
+
+" Decent colorscheme that works well both in black on white and white on
+" black terminals
+colorscheme evening
+
+" omnicpp settings
+let OmniCpp_NamespaceSearch = 2
+let OmniCpp_SelectFirstItem = 2
+"set omnifunc=syntaxcomplete#Complete
+
+"Tagbar toogle
+nmap <F8> :TagbarToggle<CR>
+
+"Map F5 but with no recursion
+nnoremap <F5> :GundoToggle<CR>
+
+" Program the F7 key to do reload autotag
+nnoremap <F7> :let g:autotagDisabled = 0 <CR>:call AutoTag ()<CR> :let g:autotagDisabled = 1 <CR>
+
+" For autotag to be compatible with omnicpp
+let g:autotagCtagsCmd = "ctags --c++-kinds=+p --fields=+iaS --extra=+q"
+" Set max tag file to 100MB
+let g:autotagmaxTagsFileSize = 1024*1024*100
+" Do not reload at each save
+let g:autotagDisabled = 1
+
+
+"For rebasehelper
+"let g:grhAddShortcuts=0
+
+"Just for testing the GitRebaseHelper colorscheme
+"highlight link GRHhlReviewed Title
+"highlight link GRHhlLineReviewed DiffAdd
+
+set tags=./tags,./TAGS,tags,TAGS,/usr/local/src/samba/tags
+
+if has("autocmd")
+    "match everything more the 80c long to the errormsg buffer
+    autocmd BufWinEnter !*.pdf,!git-rebase-todo match ErrorMsg /\%>80v.\+/
+    autocmd BufWinEnter *.sls set filetype=yaml
+endif
+
+let g:vim_markdown_folding_disabled=1
+" Not to be removed
+if filereadable(expand("~/.vimrc.$USER"))
+  source ~/.vimrc.$USER
+endif
+
